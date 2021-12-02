@@ -123,7 +123,7 @@ if am_i_online; then
   if [ -d "$INSTDIR/.git" ]; then
     execute "git_update $INSTDIR" "Updating $APPNAME configurations"
   else
-    execute "git_clone $REPO $INSTDIR" "Installing $APPNAME ions"
+    execute "git_clone $REPO $INSTDIR" "Installing $APPNAME configurations"
   fi
   # exit on fail
   failexitcode $? "Failed to download $REPO/$APPNAME to $INSTDIR"
