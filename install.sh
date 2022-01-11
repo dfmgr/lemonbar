@@ -52,7 +52,7 @@ scripts_check
 APPNAME="${APPNAME:-lemonbar}"
 APPDIR="$CONF/$APPNAME"
 INSTDIR="$CASJAYSDEVSHARE/$SCRIPTS_PREFIX/$APPNAME"
-REPO_BRANCH="${GIT_REPO_BRANCH:-master}"
+REPO_BRANCH="${GIT_REPO_BRANCH:-main}"
 REPO="${DFMGR:-https://github.com/dfmgr}/$APPNAME"
 REPORAW="$REPO/raw/$REPO_BRANCH"
 APPVERSION="$(__appversion "$REPORAW/version.txt")"
