@@ -1,23 +1,36 @@
 #!/usr/bin/env bash
-
+# shellcheck shell=bash
+# shellcheck disable=SC2317
+# shellcheck disable=SC2120
+# shellcheck disable=SC2155
+# shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# @Author      : Jason
-# @Contact     : casjaysdev@casjay.net
-# @File        : lemonbar
-# @Created     : Mon, Dec 31, 2019, 00:00 EST
-# @License     : WTFPL
-# @Copyright   : Copyright (c) CasjaysDev
-# @Description : lemonbar script
-#
+##@Version           :  202207042116-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  jason@casjaysdev.com
+# @@License          :  LICENSE.md
+# @@ReadME           :  lemonbar.sh --help
+# @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
+# @@Created          :  Tuesday, Apr 25, 2023 20:46 EDT
+# @@File             :  lemonbar.sh
+# @@Description      :
+# @@Changelog        :  New script
+# @@TODO             :  Better documentation
+# @@Other            :
+# @@Resource         :
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/sh
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# Set functions
-
-mainbar() {
+HOME="${USER_HOME:-$HOME}"
+USER="${SUDO_USER:-$USER}"
+RUN_USER="${SUDO_USER:-$USER}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Additional functions
+__lemonbar() {
   Clock() {
     DATE=$(date "+%m.%d.%y")
     TIME=$(date "+%I:%M")
-
     echo -e -n "\uf073 ${DATE} \uf017 ${TIME}"
   }
 
@@ -27,8 +40,7 @@ mainbar() {
 
   Battery() {
     BATTACPI=$(acpi --battery)
-    BATPERC=$(echo $BATTACPI | cut -d, -f2 | tr -d '[:space:]')
-
+    BATPERC=$(echo "$BATTACPI" | cut -d, -f2 | tr -d '[:space:]')
     if [[ $BATTACPI == *"100%"* ]]; then
       echo -e -n "\uf00c $BATPERC"
     elif [[ $BATTACPI == *"Discharging"* ]]; then
@@ -65,7 +77,7 @@ mainbar() {
 
   Sound() {
     NOTMUTED=$(amixer sget Master | grep "\[on\]")
-    if [[ ! -z $NOTMUTED ]]; then
+    if [ -n "$NOTMUTED" ]; then
       VOL=$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master) | sed 's/%//g')
       if [ $VOL -ge 85 ]; then
         echo -e "\uf028 ${VOL}%"
@@ -84,11 +96,9 @@ mainbar() {
     sleep 0.1s
   done
 }
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-mainbar | lemonbar -p -F#FFFFFFFF -B#FF222222 -f "Hack Nerd Font-8" -f FontAwesome-8 >/dev/null 2>&1 &
-
+# Main application
+[ -n "$(type -P lemonbar)" ] || { echo "lemonbar is not installed" && exit 1; }
+__lemonbar | lemonbar -p -F#FFFFFFFF -B#FF222222 -f "Hack Nerd Font-8" -f FontAwesome-8 >/dev/null 2>&1 &
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-#end
+# ex: ts=2 sw=2 et filetype=sh
