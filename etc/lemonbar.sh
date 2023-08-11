@@ -7,7 +7,7 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##@Version           :  202207042116-git
 # @@Author           :  Jason Hempstead
-# @@Contact          :  jason@casjaysdev.com
+# @@Contact          :  jason@casjaysdev.pro
 # @@License          :  LICENSE.md
 # @@ReadME           :  lemonbar.sh --help
 # @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
